@@ -1,1 +1,51 @@
-<h1>TEST</h1>
+<html>
+
+<head>
+  <title>Lingotek Token</title>
+  <script>
+    function ready(fn) {
+      if (document.readyState != 'loading') {
+        fn();
+      } else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+    function getParamFromHash(url, param) {
+      var re = new RegExp("#.*" + param + "=([^&]+)(&|$)");
+      var match = url.match(re);
+      return (match ? match[1] : "");
+    }
+
+
+    ready(() => {
+      var self_url = window.location.href;
+      var token_info = self_url.split("#")[1];
+      var params = {
+        access_token: getParamFromHash(self_url, "access_token"),
+        expires_in: getParamFromHash(self_url, "expires_in"),
+        token_type: getParamFromHash(self_url, "token_type")
+      }
+
+      // fetch('/', {
+      //   method: 'POST', // or 'PUT'
+      //   body: JSON.stringify(params), // data can be `string` or {object}!
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // });
+      const header = document.createElement('h1')
+      header.textContent = `Your token: ${params.access_token}`
+
+      document.body.append(header)
+
+    })
+  </script>
+</head>
+
+<body>
+  <div id='anchor'>
+  <a href="https://sso.lingotek.com/dialog/authorize?client_id=ab33b8b9-4c01-43bd-a209-b59f933e4fc4&redirect_uri=https%3A%2F%2Fd-tucker.github.io%2F&response_type=token">test link</a>
+  </div>
+</body>
+
+</html>
